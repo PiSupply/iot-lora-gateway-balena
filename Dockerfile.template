@@ -24,4 +24,4 @@ COPY iot-lora-gateway-start.sh ./
 RUN chmod +x ./iot-lora-gateway
 
 CMD ["bash" , "iot-lora-gateway-start.sh"]
-CMD ["iot-lora-gateway"]
+CMD ./iot-lora-gateway
