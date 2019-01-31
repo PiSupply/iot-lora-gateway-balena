@@ -1,3 +1,5 @@
+#! /bin/bash
+
 mkdir -p /opt/iotloragateway
 mkdir -p /opt/iotloragateway/dev
 mkdir -p /var/www/iotloragateway
