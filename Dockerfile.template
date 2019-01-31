@@ -14,7 +14,9 @@ RUN ./dev/compile.sh
 FROM resin/%%RESIN_MACHINE_NAME%%-debian:latest
 WORKDIR /opt/iotloragateway/
 
-COPY --from=buildstep /opt/iotloragateway/iot-lora-gateway
+COPY --from=buildstep /opt/iotloragateway/iot-lora-gateway .
+COPY --from=buildstep /opt/iotloragateway/dev/iot-lora-gateway/template_configs/EU-global_conf.json ./global_conf.json
+COPY --from=buildstep /opt/iotloragateway/dev/iot-lora-gateway/template_configs/local_conf.json.template ./local_conf.json
 COPY --from=buildstep /usr/local/lib/libpaho-embed-* /usr/lib/
 COPY --from=buildstep /usr/lib/libttn* /usr/lib/
 
