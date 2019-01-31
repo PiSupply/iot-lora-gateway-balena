@@ -1,5 +1,5 @@
 #Pi Supply IoT LoRa Gateway Image
-FROM RESIN/%%RESIN_MACHINE_NAME%%-debian:latest AS buildstep
+FROM resin/%%RESIN_MACHINE_NAME%%-debian:latest AS buildstep
 
 WORKDIR /opt/iotloragateway/
 
