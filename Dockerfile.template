@@ -20,4 +20,7 @@ COPY --from=buildstep /opt/iotloragateway/dev/iot-lora-gateway/template_configs/
 COPY --from=buildstep /usr/local/lib/libpaho-embed-* /usr/lib/
 COPY --from=buildstep /usr/lib/libttn* /usr/lib/
 
-CMD ["bash" , "start.sh"]
+COPY iot-lora-gateway-start.sh ./
+
+CMD ["bash" , "iot-lora-gateway-start.sh"]
+CMD ["bash" , "iot-lora-gateway"]
