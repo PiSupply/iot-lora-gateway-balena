@@ -1,0 +1,12 @@
+#Pi Supply IoT LoRa Gateway Image
+FROM RESIN/%%RESIN_MACHINE_NAME%%-debian:latest AS buildstep
+
+WORKDIR /opt/iotloragateway/
+
+RUN apt-get update
+RUN apt-get install python3-dialog protobuf-compiler libprotobuf-dev libprotoc-dev automake libtool autoconf python-dev python-rpi.gpio git pkg-config protobuf-c-compiler libprotobuf-c-dev
+
+COPY dev dev
+RUN ./dev/compile.sh
+
+#Download apt packages required
