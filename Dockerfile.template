@@ -4,11 +4,18 @@ FROM resin/%%RESIN_MACHINE_NAME%%-debian:latest AS buildstep
 WORKDIR /opt/iotloragateway/
 
 RUN apt-get update
-RUN apt-get install python3-dialog protobuf-compiler libprotobuf-dev libprotoc-dev automake libtool autoconf python-dev python-rpi.gpio git pkg-config protobuf-c-compiler libprotobuf-c-dev build-essential libc6-dev 
+RUN apt-get install python3-dialog protobuf-compiler libprotobuf-dev libprotoc-dev automake libtool autoconf python-dev python-rpi.gpio git pkg-config protobuf-c-compiler libprotobuf-c-dev build-essential libc6-dev
 
 COPY dev dev
 
 RUN chmod +x ./dev/compile.sh
 RUN ./dev/compile.sh
 
-#Download apt packages required
+FROM resin/%%RESIN_MACHINE_NAME%%-debian:latest
+WORKDIR /opt/iotloragateway/
+
+COPY --from=buildstep /opt/iotloragateway/iot-lora-gateway
+COPY --from=buildstep /usr/local/lib/libpaho-embed-* /usr/lib/
+COPY --from=buildstep /usr/lib/libttn* /usr/lib/
+
+CMD ["bash" , "start.sh"]
