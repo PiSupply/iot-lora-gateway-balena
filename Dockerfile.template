@@ -26,6 +26,7 @@ COPY --from=buildstep /usr/lib/libttn* /usr/lib/
 COPY iot-lora-gateway-start.sh ./
 COPY configureGateway.py ./
 RUN chmod +x ./iot-lora-gateway
-CMD ["python" , "configureGateway.py"]
+
+#This should run when the container launches
+
 CMD ["bash" , "iot-lora-gateway-start.sh"]
-CMD ./iot-lora-gateway
