@@ -26,6 +26,6 @@ COPY --from=buildstep /usr/lib/libttn* /usr/lib/
 COPY iot-lora-gateway-start.sh ./
 COPY configureGateway.py ./
 RUN chmod +x ./iot-lora-gateway
-CMD ["python" , "iot-lora-gateway-start.sh"]
+CMD ["python" , "configureGateway.py"]
 CMD ["bash" , "iot-lora-gateway-start.sh"]
 CMD ./iot-lora-gateway
