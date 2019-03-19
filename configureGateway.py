@@ -34,6 +34,8 @@ ttnData = json.loads(ttnJson)
 gatewayGenId = str.encode("IOT"+gatewayTtnId[-5:])
 gatewayGenId = codecs.encode(gatewayGenId, "hex")
 
+routerUrl = "router." + ttnData['router']['address'][0:-5]
+
 #Open Up the config file
 configLocation = '/opt/iotloragateway/local_conf.json'
 with open(configLocation, 'r') as f:
@@ -47,7 +49,7 @@ with open(configLocation, 'r') as f:
     data["gateway_conf"]["ref_altitude"] = ttnData['altitude']
     data["gateway_conf"]["servers"][0]["serv_gw_key"] = keyDetails
     data["gateway_conf"]["gateway_ID"] = gatewayGenId.decode()
-    data["gateway_conf"]["servers"][0]["server_address"] = ttnData['router']['address'][0:-5]
+    data["gateway_conf"]["servers"][0]["server_address"] = routerUrl
     data["gateway_conf"]["contact_email"] = emailAddr
     data["gateway_conf"]["gps"] = "true"
     data["gateway_conf"]["fake_gps"] = "true"
