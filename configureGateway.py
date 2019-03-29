@@ -9,12 +9,6 @@ import codecs
 
 print("Gateway Configuring")
 
-#Lets configure this how we do in our PHP version while also including balena variables
-
-
-
-
-
 #Get Server ID
 gatewayTtnId = os.environ.get("TTN_ID")
 #Get TTN Key
