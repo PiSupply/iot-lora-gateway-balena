@@ -37,8 +37,12 @@ gatewayGenId = codecs.encode(gatewayGenId, "hex")
 routerUrl = "router." + ttnData['router']['address'][0:-5]
 
 #Check for latitude and longitude data
-latitude = ttnData['location']['lat']
-longitude = ttnData['location']['lng']
+try:
+    latitude = ttnData['location']['lat']
+    longitude = ttnData['location']['lng']
+except (TypeError, AttributeError):
+    latitude = 0
+    longitude = 0
 
 #Open Up the config file
 configLocation = '/opt/iotloragateway/local_conf.json'
@@ -52,7 +56,7 @@ with open(configLocation, 'r') as f:
     data["gateway_conf"]["gateway_ID"] = gatewayGenId.decode()
     data["gateway_conf"]["servers"][0]["server_address"] = routerUrl
     data["gateway_conf"]["contact_email"] = emailAddr
-    
+
     # Use hardware GPS
     if(gw_gps):
       data["gateway_conf"]["gps"] = "true"
@@ -62,8 +66,8 @@ with open(configLocation, 'r') as f:
     elif(gw_gps==False and latitude!=0 and longitude!=0):
       data["gateway_conf"]["gps"] = "true"
       data["gateway_conf"]["fake_gps"] = "true"
-      data["gateway_conf"]["ref_latitude"] = ttnData['location']['lat']
-      data["gateway_conf"]["ref_longitude"] = ttnData['location']['lng']
+      data["gateway_conf"]["ref_latitude"] = latitude
+      data["gateway_conf"]["ref_longitude"] = longitude
       data["gateway_conf"]["ref_altitude"] = ttnData['altitude']
     # No GPS coordinates
     else:
