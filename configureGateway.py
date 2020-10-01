@@ -51,7 +51,10 @@ with open(configLocation, 'r') as f:
 
     # Lets set the easy stuff first
     data["gateway_conf"]["servers"][0]["serv_gw_id"] = gatewayTtnId
-    data["gateway_conf"]["description"] = ttnData['attributes']['description']
+    try:
+        data["gateway_conf"]["description"] = ttnData['attributes']['description']
+    except (TypeError, AttributeError):
+        data["gateway_conf"]["description"] = "Pi Supply Gateway"
     data["gateway_conf"]["servers"][0]["serv_gw_key"] = keyDetails
     data["gateway_conf"]["gateway_ID"] = gatewayGenId.decode()
     data["gateway_conf"]["servers"][0]["server_address"] = routerUrl
