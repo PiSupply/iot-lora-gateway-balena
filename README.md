@@ -11,7 +11,7 @@ You can find the full guide on how to setup your gateway using this method on ou
 
 One-click deploy to balenaCloud:
 
-[![](https://balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy)
+[![balena deploy button](https://balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/PiSupply/iot-lora-gateway-balena&defaultDeviceType=raspberry-pi)
 
 
 # Variables
@@ -24,5 +24,7 @@ For each gateway you must then go into it and set two device variables:
 ```TTN_ID``` - This is the ID as in the TTN Console.
 
 ```TTN_KEY``` - This is the Gateway's Key as from the TTN Console.
+
+```GW_GPS``` - This determines whether you are using a hardware GPS module or not (add true if you have one)
 
 Another variable will be used soon.
