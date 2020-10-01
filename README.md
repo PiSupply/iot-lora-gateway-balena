@@ -21,10 +21,16 @@ The email variable ```CONTACT_EMAIL``` can be set in the application's envrionme
 
 For each gateway you must then go into it and set two device variables:
 
-```TTN_ID``` - This is the ID as in the TTN Console.
+`TTN_ID` - This is the ID as in the TTN Console.
 
-```TTN_KEY``` - This is the Gateway's Key as from the TTN Console.
+`TTN_KEY` - This is the Gateway's Key as from the TTN Console.
 
-```GW_GPS``` - This determines whether you are using a hardware GPS module or not (add true if you have one)
+`GW_GPS` - This determines whether you are using a hardware GPS module or not (add true if you have one)
 
 Another variable will be used soon.
+
+## GPS module
+You will also require to enable UART on the Raspberry Pi for GPS to fully function. To do this on the Balena console click your device, and then at the side Device Configuration, then enable where it says Enable Uart.
+
+## Pi 3, 4 & Zero W
+You'll also need to swap the serial port used by the bluetooth module around, you can do this by in the same device configuration tab adding ```,"miniuart-bt"``` to the end of the ```Define DT overlays``` list, for example it should look like ```"vc4-fkms-v3d", "miniuart-bt"```
