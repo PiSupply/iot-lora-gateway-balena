@@ -36,6 +36,10 @@ gatewayGenId = codecs.encode(gatewayGenId, "hex")
 
 routerUrl = "router." + ttnData['router']['address'][0:-5]
 
+#Check for latitude and longitude data
+latitude = ttnData['location']['lat']
+longitude = ttnData['location']['lng']
+
 #Open Up the config file
 configLocation = '/opt/iotloragateway/local_conf.json'
 with open(configLocation, 'r') as f:
@@ -51,13 +55,11 @@ with open(configLocation, 'r') as f:
     
     # Use hardware GPS
     if(gw_gps):
-      print ("Using real GPS")
       data["gateway_conf"]["gps"] = "true"
       data["gateway_conf"]["fake_gps"] = "false"
       data["gateway_conf"]["gps_tty_path"] = os.getenv('GW_GPS_PORT', "/dev/ttyAMA0")
     # Use fake GPS with coordinates from TTN
     elif(gw_gps==False and latitude!=0 and longitude!=0):
-      print ("Using fake GPS")
       data["gateway_conf"]["gps"] = "true"
       data["gateway_conf"]["fake_gps"] = "true"
       data["gateway_conf"]["ref_latitude"] = ttnData['location']['lat']
@@ -65,7 +67,6 @@ with open(configLocation, 'r') as f:
       data["gateway_conf"]["ref_altitude"] = ttnData['altitude']
     # No GPS coordinates
     else:
-      print ("Not sending coordinates")
       data["gateway_conf"]["gps"] = "false"
       data["gateway_conf"]["fake_gps"] = "false"
 
