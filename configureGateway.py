@@ -61,7 +61,7 @@ with open(configLocation, 'r') as f:
     if(gw_gps):
       data["gateway_conf"]["gps"] = "true"
       data["gateway_conf"]["fake_gps"] = "false"
-      data["gateway_conf"]["gps_tty_path"] = os.getenv('GW_GPS_PORT', "/dev/ttyAMA0")
+      data["gateway_conf"]["gps_tty_path"] = os.getenv('GW_GPS_PORT', "/dev/serial0")
     # Use fake GPS with coordinates from TTN
     elif(gw_gps==False and latitude!=0 and longitude!=0):
       data["gateway_conf"]["gps"] = "true"
