@@ -9,6 +9,11 @@ This is still in testing, if you have one of our beta boards and can test then p
 
 You can find the full guide on how to setup your gateway using this method on our makerzone at
 
+One-click deploy to balenaCloud:
+
+[![](https://balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy)
+
+
 # Variables
 The software only requires 3 variables to be set.
 
