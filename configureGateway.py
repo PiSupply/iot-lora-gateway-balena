@@ -53,7 +53,7 @@ with open(configLocation, 'r') as f:
     data["gateway_conf"]["servers"][0]["serv_gw_id"] = gatewayTtnId
     try:
         data["gateway_conf"]["description"] = ttnData['attributes']['description']
-    except (TypeError, AttributeError):
+    except KeyError:
         data["gateway_conf"]["description"] = "Pi Supply Gateway"
     data["gateway_conf"]["servers"][0]["serv_gw_key"] = keyDetails
     data["gateway_conf"]["gateway_ID"] = gatewayGenId.decode()
