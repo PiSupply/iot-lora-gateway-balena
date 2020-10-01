@@ -17,6 +17,12 @@ if(gatewayTtnId == None or keyDetails == None):
     print("Please set variables from balena console")
     sys.exit()
 emailAddr = os.environ.get("CONTACT_EMAIL")
+
+# Parse GW_GPS env var. It is a string, we need a boolean.
+if(os.getenv("GW_GPS", "false")=="true"):
+  gw_gps = True
+else:
+  gw_gps = False
 #That's all we need from balena
 
 #Now request from TTN API
@@ -38,15 +44,30 @@ with open(configLocation, 'r') as f:
     # Lets set the easy stuff first
     data["gateway_conf"]["servers"][0]["serv_gw_id"] = gatewayTtnId
     data["gateway_conf"]["description"] = ttnData['attributes']['description']
-    data["gateway_conf"]["ref_latitude"] = ttnData['location']['lat']
-    data["gateway_conf"]["ref_longitude"] = ttnData['location']['lng']
-    data["gateway_conf"]["ref_altitude"] = ttnData['altitude']
     data["gateway_conf"]["servers"][0]["serv_gw_key"] = keyDetails
     data["gateway_conf"]["gateway_ID"] = gatewayGenId.decode()
     data["gateway_conf"]["servers"][0]["server_address"] = routerUrl
     data["gateway_conf"]["contact_email"] = emailAddr
-    data["gateway_conf"]["gps"] = "true"
-    data["gateway_conf"]["fake_gps"] = "true"
+    
+    # Use hardware GPS
+    if(gw_gps):
+      print ("Using real GPS")
+      data["gateway_conf"]["gps"] = "true"
+      data["gateway_conf"]["fake_gps"] = "false"
+      data["gateway_conf"]["gps_tty_path"] = os.getenv('GW_GPS_PORT', "/dev/ttyAMA0")
+    # Use fake GPS with coordinates from TTN
+    elif(gw_gps==False and latitude!=0 and longitude!=0):
+      print ("Using fake GPS")
+      data["gateway_conf"]["gps"] = "true"
+      data["gateway_conf"]["fake_gps"] = "true"
+      data["gateway_conf"]["ref_latitude"] = ttnData['location']['lat']
+      data["gateway_conf"]["ref_longitude"] = ttnData['location']['lng']
+      data["gateway_conf"]["ref_altitude"] = ttnData['altitude']
+    # No GPS coordinates
+    else:
+      print ("Not sending coordinates")
+      data["gateway_conf"]["gps"] = "false"
+      data["gateway_conf"]["fake_gps"] = "false"
 
 os.remove(configLocation)
 with open(configLocation, 'w') as f:
