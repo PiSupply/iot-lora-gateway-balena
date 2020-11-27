@@ -11,7 +11,7 @@ You can find the full guide on how to setup your gateway using this method on ou
 
 One-click deploy to balenaCloud:
 
-[![balena deploy button](https://balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/PiSupply/iot-lora-gateway-balena&defaultDeviceType=raspberry-pi)
+[![balena deploy button](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/PiSupply/iot-lora-gateway-balena&defaultDeviceType=raspberry-pi)
 
 
 # Variables
